@@ -5,42 +5,55 @@
     // Initialize the user's score to 0
     var score = 0;
 
-    // Generate a random math question
     function generateQuestion() {
-      // Generate two random numbers
-      var a = Math.floor(Math.random() * 10);
-      var b = Math.floor(Math.random() * 10);
+  // Generate two random numbers
+  var a = Math.floor(Math.random() * 10);
+  var b = Math.floor(Math.random() * 10);
 
-      // Create the question text
-      var question = 'What is ' + a + ' + ' + b + '?';
+  // Create the question text
+  var question = 'What is ' + a + ' + ' + b + '?';
 
-      // Set the question text in the page
-      document.getElementById('question').innerHTML = question;
+  // Set the question text in the page
+  document.getElementById('question').innerHTML = question;
 
-      // Store the correct answer in a hidden form field
-      document.getElementById('correctAnswer').value = a + b;
+  // Store the correct answer in a hidden form field
+  document.getElementById('correctAnswer').value = a + b;
+
+  // Get a reference to the answer text field
+  var answerField = document.getElementById('answer');
+
+  // Add an event listener that calls checkAnswer when the Enter key is pressed
+  answerField.addEventListener('keydown', function(event) {
+    if (event.keyCode === 13) {
+      checkAnswer();
     }
+  });
+}
 
-    // Check the user's answer
-    function checkAnswer() {
-      // Get the user's answer
-      var answer = document.getElementById('answer').value;
+// Check the user's answer
+function checkAnswer() {
+  // Get the user's answer
+  var answer = document.getElementById('answer').value;
 
-      // Get the correct answer
-      var correctAnswer = document.getElementById('correctAnswer').value;
+  // Get the correct answer
+  var correctAnswer = document.getElementById('correctAnswer').value;
 
-      // Compare the answers
-      if (answer == correctAnswer) {
-        // If the answers match, increment the score
-        score++;
+  // Compare the answers
+  if (answer == correctAnswer) {
+    // If the answers match, increment the score
+    score++;
+     
+    // Display the new score on the page
+    document.getElementById('score').innerHTML = 'Score: ' + score;
 
-        // Display the new score on the page
-        document.getElementById('score').innerHTML = 'Score: ' + score;
+    // Clear the answer field
+    document.getElementById('answer').value = '';
 
-        // Generate a new question
-        generateQuestion();
-      }
-    }
+    // Generate a new question
+    generateQuestion();
+  }
+}
+
   </script>
 </head>
 <body onload="generateQuestion()">
